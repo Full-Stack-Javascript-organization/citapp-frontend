@@ -39,7 +39,7 @@ export default function Card(props) {
   //   }
 
   return (
-    <div className="w-full h-[500px] text-[#EEEEEE]  p-2 flex-col rounded bg-[#393E46]">
+    <div className="w-full h-[500px] text-[#EEEEEE]  p-5 flex-col rounded bg-[#393E46]">
       <img
         src={""}
         alt="Store"
@@ -47,7 +47,7 @@ export default function Card(props) {
       />
       <div className="flex mt-2 items-center gap-2 content-center">
         <FaCircle className=" flex-initial text-[#00DFA2] text-lg " />
-        <h1 className="font-bold text-4xl text-[#F7E987]">Store Name</h1>
+        <h1 className="font-bold text-4xl text-[#F7E987]">{props.name}</h1>
       </div>
 
       <div className="flex mt-2 items-center gap-2">
