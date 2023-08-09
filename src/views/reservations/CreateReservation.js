@@ -1,101 +1,63 @@
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 // import ReactDOM from 'react-dom/client';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+
+
+let sessions = [];
+
+
+const allreservations = async () => {
+    await axios.get("http://localhost:3001/calendar/search?location=Hilton")
+        //.then(response => response.json())
+        .then(response => {
+            console.log("Data loaded:");
+            response.data.forEach((item, index) => {
+                console.log(`Item ${index}:`, item);
+                sessions.push(item);
+            });
+            
+           // sessions = [...sessions];
+            console.log("session Data : "+ sessions);
+            return sessions;
+        })
+        .catch(error => {
+            console.error('Error loading data:', error);
+            return [];
+        });;
+}
 
 
 
-const sessions = [
-    {
-        "date": "2023-08-10T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": true
-    },
-    {
-        "date": "2023-08-11T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": false
-    },
-    {
-        "date": "2023-08-12T00:47:26.000Z",
-        "ismorning": false,
-        "isevening": true
-    },
-    {
-        "date": "2023-08-14T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": true
-    },
-    {
-        "date": "2023-08-15T00:47:26.000Z",
-        "ismorning": false,
-        "isevening": false
-    },
-    {
-        "date": "2023-08-17T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": false
-    },
-    {
-        "date": "2023-08-18T00:47:26.000Z",
-        "ismorning": false,
-        "isevening": true
-    },
-    {
-        "date": "2023-08-21T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": true
-    },
-    {
-        "date": "2023-08-22T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": false
-    },
-    {
-        "date": "2023-08-24T00:47:26.000Z",
-        "ismorning": false,
-        "isevening": true
-    },
-    {
-        "date": "2023-08-25T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": true
-    },
-    {
-        "date": "2023-08-27T00:47:26.000Z",
-        "ismorning": false,
-        "isevening": false
-    },
-    {
-        "date": "2023-08-28T00:47:26.000Z",
-        "ismorning": true,
-        "isevening": false
-    },
-    {
-        "date": "2023-08-31T00:47:26.000Z",
-        "ismorning": false,
-        "isevening": true
-    }
-];
-
-export function CreateReservation() {
+export function CreateReservation(prop) {
+    const { logout, user } = useAuth();
     const [inputs, setInputs] = useState({});
     const [startDate, setStartDate] = useState(new Date());
     const [isMorning, setMorning] = useState(false);
     const [isEvening, setEvening] = useState(false);
+    //const [sessions, setSessions] = useState([]);
+
+    useEffect(() => {
+        allreservations().then(result => {
+            //console.log("session Data 123 : "+ sessions);
+            //setSessions(result);
+            // console.log("session Data : "+ sessions);
+        });
+        
+    }, []);
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const today = new Date();
-    const nextTwoWeeks = [];
-  
+    let nextTwoWeeks = [];
+
     // Generate dates for the next two weeks
-    for (let i = 0; i < 14; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      nextTwoWeeks.push(date);
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        nextTwoWeeks.push(date);
     }
     /////////////////////////////////////////////
 
@@ -123,8 +85,9 @@ export function CreateReservation() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(inputs);
+        console.log(sessions);
 
+        
         // alert(inputs.eventname + ": " + inputs.eventdescription
         //     + "\nDate : " + startDate
         //     + "\nSession : " + (inputs.ismorning ? "Morning" : "") + (inputs.isevening ? " Evening" : "")
@@ -134,24 +97,42 @@ export function CreateReservation() {
             name: inputs.eventname,
             description: inputs.eventdescription,
             location: "Hilton",
+            companyid: 1,
             date: startDate,
             ismorning: inputs.ismorning,
-            isevening: inputs.isevening
+            isevening: inputs.isevening,
+            reservationby: user.email
         };
-        axios.post("http://localhost:3001/calendar", reservation).then((res) => {
-            alert("Reservation Success");
+        axios.post("http://localhost:3001/calendar", reservation).then(async (res) => {
+            //alert("Reservation Success");
             //window.location = "/";//easiest way
 
             //Add UseNavigate 
             //useNavigate.call('/');
-        });
+            await allreservations().then(result => {
+                // sessions = [...sessions];
+                window.location.reload(false);
+            // nextTwoWeeks = [...nextTwoWeeks];
+            // sessions = [];
+            // sessions.forEach((item, index) => {
+            //     console.log(`Item ${index}:`, item);
+            //     sessions.push(item);
+            // });
+                //alert(sessions);
+            });
+        })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                return [];
+            });
 
     }
+
 
     return (
         <div className='w-full h-screen'>
 
-            <h1>Hilton</h1>
+            <h1>{prop.name}</h1>
             <form onSubmit={handleSubmit}>
                 <label>Event Name:
                     <input
@@ -197,61 +178,55 @@ export function CreateReservation() {
             <h1>Weekly Timetable</h1>
             <div>
                 <h1>Timetable for the Next Two Weeks</h1>
-                <table>
-                <thead>
-          <tr>
-            <th>Date</th>
-            {nextTwoWeeks.map((date, index) => (
-              <th key={index} colSpan="2">
-                {daysOfWeek[date.getDay()]} - {date.toLocaleDateString('en-US')}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Session</td>
-            {nextTwoWeeks.map((date, dateIndex) => (
-              <React.Fragment key={dateIndex}>
-                <td>
-                  {sessions.some(
-                    (session) =>
-                      new Date(session.date).toLocaleDateString('en-US') ===
-                        date.toLocaleDateString('en-US') && session.ismorning
-                  )
-                    ? 'Morning'
-                    : ''}                
-                    </td>
-               
-              </React.Fragment>
-            ))}
-          </tr>
-          <tr>
-            <td>Session</td>
-            {nextTwoWeeks.map((date, dateIndex) => (
-              <React.Fragment key={dateIndex}>
-                <td>
-                  {sessions.some(
-                    (session) =>
-                      new Date(session.date).toLocaleDateString('en-US') ===
-                        date.toLocaleDateString('en-US') && session.isevening
-                  )
-                    ? 'Evening'
-                    : ''}
-                </td>
-              </React.Fragment>
-            ))}
-          </tr>
-        </tbody>     
-      </table>               
+                <table class="table-auto border-separate border border-slate-400">
+                    <thead>
+                        <tr>
+                            <th class="border border-slate-300 " >Date</th>
+                            {nextTwoWeeks.map((date, index) => (
+                                <th key={index} colSpan="2">
+                                    {daysOfWeek[date.getDay()]}<br></br>
+                                    {date.toLocaleDateString('en-US')}
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-slate-300">Session</td>
+                            {nextTwoWeeks.map((date, dateIndex) => (
+                                <React.Fragment key={dateIndex}>
+                                    <td class="border border-slate-300">
+                                        {sessions.some(
+                                            (session) =>
+                                                new Date(session.date).toLocaleDateString('en-US') ===
+                                                date.toLocaleDateString('en-US') && session.ismorning
+                                        )
+                                            ? 'Morning'
+                                            : ''}
+                                    </td>
+
+                                </React.Fragment>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300">Session</td>
+                            {nextTwoWeeks.map((date, dateIndex) => (
+                                <React.Fragment key={dateIndex}>
+                                    <td class="border border-slate-300">
+                                        {sessions.some(
+                                            (session) =>
+                                                new Date(session.date).toLocaleDateString('en-US') ===
+                                                date.toLocaleDateString('en-US') && session.isevening
+                                        )
+                                            ? 'Evening'
+                                            : ''}
+                                    </td>
+                                </React.Fragment>
+                            ))}
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     )
-
-    // return (
-    //   <div className='w-full h-screen'>
-    //     <div>Hilton</div>
-    //     Reservations :  
-    //   </div>
-    // );
 }

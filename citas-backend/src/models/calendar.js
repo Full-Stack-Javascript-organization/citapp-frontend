@@ -10,6 +10,14 @@ const calendarSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  companyid: {
+    type: Number,
+    required: true,
+  },
+  reservationby: {
+    type: String,
+    required: true,
+  },
   location: {
     type: String,
     required: true,
@@ -20,13 +28,12 @@ const calendarSchema = new mongoose.Schema({
   },
   ismorning: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   isevening: {
     type: Boolean,
-    required: true,
-  },
-
+    required: false,
+  }
 });
 
 module.exports = mongoose.model('Calendar',calendarSchema);

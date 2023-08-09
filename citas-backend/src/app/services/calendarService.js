@@ -23,9 +23,7 @@ class CalendarService {
 
   async getAllCalendars() {
     try {      
-      console.log("Before sleep");
       await new Promise(r => setTimeout(r, 2000));
-      console.log("after sleep");
       return await this.calendarRepository.getAllCalendars();
     } catch (err) {
       throw new Error('Failed to get calendars');
@@ -57,7 +55,7 @@ class CalendarService {
     }
   }
   
-  async getAllCalendars(name, email) {
+  async getAllCalendars(name, id) {
     try {
       const filter = {};
       
@@ -65,8 +63,8 @@ class CalendarService {
         filter.name = name;
       }
       
-      if (email) {
-        filter.email = email;
+      if (id) {
+        filter.id = id;
       }
       return await this.calendarRepository.getAllCalendars(filter);
     } catch (err) {
