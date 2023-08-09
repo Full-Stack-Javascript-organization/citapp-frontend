@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/citas', {
+    //const connectionString = "mongodb://localhost:27017/citas";
+    const connectionString = process.env.ATLAS_URI;
+    await mongoose.connect(connectionString, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
