@@ -13,6 +13,7 @@ export default function Card(props) {
     companyID: props.company.companyID,
     address: props.company.address,
     availableTime: props.company.availableTime,
+    img: props.company.img,
   };
   let image = "";
   switch (props.company.img) {
