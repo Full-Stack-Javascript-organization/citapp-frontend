@@ -50,7 +50,7 @@ class CalendarRepository {
 
   async getCalendar(filter) {
     try {
-      const calendar = await Calendar.findOne(filter);
+      const calendar = await Calendar.findById(filter);
       return calendar;
     } catch (err) {
       throw new Error('Failed to get calendar');

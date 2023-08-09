@@ -10,6 +10,7 @@ import Dentist from "../../assets/img/Dentist.png";
 import Escape from "../../assets/img/escape.png";
 import starlight from "../../assets/img/starlight.png";
 import lodge from "../../assets/img/lodge.png";
+import { FaMapPin, FaCircle, FaClock } from "react-icons/fa";
 let sessions = [];
 
 const allreservations = async (id) => {
@@ -96,10 +97,12 @@ export function CreateReservation(prop) {
 
   const reservationDetails = async (id) => {
     await axios
-      .get("http://localhost:3001/calendar/" + id)
+      .get("http://localhost:3001/calendar/company/" + id)
       //.then(response => response.json())
       .then((response) => {
-        console.log("Data loaded:");
+        console.log("Data loaded:" + response.data.name);
+        console.log("Data loaded:" + response.data.date);
+
         setReservationData(response.data);
       })
       .catch((error) => {
@@ -142,18 +145,18 @@ export function CreateReservation(prop) {
 
   return (
     <div className="m-auto laptop:mt-5 laptop:pt-20 px-5 flex flex-col gap-4 tablet:w-4/5 laptop:w-4/5 desktop:4/5">
-      {/* <div className="flex mt-2 items-center gap-2 content-center">
+      <div className="flex mt-2 items-center gap-2 content-center">
         <FaCircle className=" flex-initial text-[#00DFA2] text-lg " />
-        <h1 className="font-bold text-4xl text-[#F7E987]">{name}</h1>
+        <h1 className="font-bold text-4xl text-[#F7E987]">{location.state.company.companyName}</h1>
       </div>
       <div className="flex  items-center gap-2">
         <FaMapPin className="text-[#00ADB5] flex-initial " />
-        <p className="text-white ">123 Broadway, BC</p>
+        <p className="text-white ">{location.state.company.address}</p>
       </div>
       <div className="flex items-center gap-2">
         <FaClock className="text-[#00ADB5]" />
-        <p className="text-white">9:00 am - 5:00pm</p>
-      </div> */}
+        <p className="text-white">{location.state.company.availableTime}</p>
+      </div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           className="rounded-md border-0 h-8 p-2"
@@ -163,14 +166,14 @@ export function CreateReservation(prop) {
           onChange={handleChange}
           placeholder="Appointment Reason"
         />
-        <input
+        {/* <input
           className="rounded-md border-0 h-8 p-2"
           type="text"
           name="name"
           value={inputs.eventname || ""}
           onChange={handleChange}
           placeholder="Full name"
-        />
+        /> */}
 
         {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
         <input

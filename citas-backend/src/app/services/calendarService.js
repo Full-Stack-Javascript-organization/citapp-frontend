@@ -56,13 +56,8 @@ class CalendarService {
   }
   
   async getAllCalendarById(id) {
-    try {
-      const filter = {};
-      
-      if (id) {
-        filter.id = id;
-      }
-      return await this.calendarRepository.getCalendar(filter);
+    try {      
+      return await this.calendarRepository.getCalendar(id);
     } catch (err) {
       throw new Error('Failed to get calendars');
     }
