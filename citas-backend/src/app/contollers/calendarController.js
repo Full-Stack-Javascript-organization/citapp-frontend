@@ -71,8 +71,18 @@ class CalendarController {
 
   async getAllCalendarsByName(req, res) {
     try {
-      const { name, email } = req.query;            
-      const calendars = await this.calendarService.getAllCalendars(name, email);
+      const { name, companyid } = req.query;            
+      const calendars = await this.calendarService.getAllCalendars(name, companyid);
+      res.json(calendars);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+  
+  async getAllCalendarById(req, res) {
+    try {
+      const { name, companyid } = req.query;            
+      const calendars = await this.calendarService.getAllCalendarById(name, companyid);
       res.json(calendars);
     } catch (err) {
       res.status(500).json({ error: err.message });

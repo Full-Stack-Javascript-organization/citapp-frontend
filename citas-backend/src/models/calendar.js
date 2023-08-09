@@ -11,7 +11,7 @@ const calendarSchema = new mongoose.Schema({
     unique: true,
   },
   companyid: {
-    type: Number,
+    type: String,
     required: true,
   },
   reservationby: {

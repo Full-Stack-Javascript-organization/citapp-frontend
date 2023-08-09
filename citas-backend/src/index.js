@@ -19,18 +19,17 @@ app.use(express.json()) // To parse the incoming requests with JSON payloads
 //app.use(bodyParser);
 
 connectDB();
-
-/*app.use(express.json());
+app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/company', companyRoutes);
 app.use('/service', serviceRoutes);
-app.use('/calendar', calendarRoutes);*/
+app.use('/calendar', calendarRoutes);
 
 
 
-app.get('/', (req,res) => {
-    res.send(`Hello There`); 
-})
+// app.get('/', (req,res) => {
+//     res.send(`Hello There`); 
+// })
 
 app.get('/notify', async (req,res) => {
 
@@ -47,5 +46,5 @@ app.get('/notify', async (req,res) => {
 })
 
 app.listen(3001, () => {
-  console.log('Server is running on port 3000');
+  console.log('Server is running on port 3001');
 });
