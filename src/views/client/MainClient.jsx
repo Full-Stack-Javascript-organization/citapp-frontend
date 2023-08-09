@@ -1,5 +1,6 @@
 import React from 'react';
 import headerTeepees from '../../header_teepes.jpg';
+import { useNavigate } from "react-router-dom";
 
 const data = 
   {
@@ -9,7 +10,16 @@ const data =
 
   };
 
+  
+
 export function MainClient() {
+
+  let navigate = useNavigate(); 
+  const goToHomePage = () =>{ 
+    let path = `/homepage`; 
+    navigate(path);
+  }
+  
   return (
     <div className='w-full h-screen'>
       <img
@@ -26,7 +36,7 @@ export function MainClient() {
           <p className='max-w-[600px] drop-shadow-2xl py-2 text-xl'>
             {data.mainMessage}
           </p>
-          <button className='bg-white text-black '>Reserve Now</button>
+          <button className='bg-white text-black ' onClick={goToHomePage}>Reserve Now</button>
         </div>
       </div>
     </div>

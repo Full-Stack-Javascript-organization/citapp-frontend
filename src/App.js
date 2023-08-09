@@ -39,10 +39,17 @@ function App() {
           <Route
             path="/homepage"
             element={
-              <div className="bg-black">
-                <HomePageBody />
+              <ProtectedRoute>
+                <div className="flex overflow-scroll ">
+                  <div className="basis-[100%] border overflow-scroll h-[100vh]">
+                    <Header />
+                    <div>
+                      <HomePageBody />
+                    </div>
+                  </div>                  
+                </div>
                 <Footer />
-              </div>
+              </ProtectedRoute>
             }
           />
           <Route path="/login" element={<Login />} />
