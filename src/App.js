@@ -14,6 +14,7 @@ import {Company} from './views/client/Company';
 import {ImageSlider} from './views/client/ImageSlider'
 import {Footer} from './views/client/Footer'
 import {CreateReservation} from "./views/reservations/CreateReservation"
+import { HomePageBody } from "./views/client/HomePage";
 
 import { AuthProvider } from "./context/AuthContext";
 
@@ -22,17 +23,28 @@ function App() {
     <div>
       <AuthProvider>
         <Routes>
-        <Route
+          <Route
             path="/"
-            element={<>
-              <Navbar />
-              <MainClient />
-              <Plan />
-              <Company />
-              <ImageSlider />
-              <Footer />
-            </>              
-            } />
+            element={
+              <>
+                <Navbar />
+                <MainClient />
+                <Plan />
+                <Company />
+                <ImageSlider />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/homepage"
+            element={
+              <div className="bg-black">
+                <HomePageBody />
+                <Footer />
+              </div>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/reservation" element={<CreateReservation />} />
           <Route
