@@ -12,28 +12,28 @@ const dentistSlides = [
 export function ImageSlider(props) {
   let slides = [
     {
-      url: "https://drive.google.com/uc?id=15-vc0Y-28QPcyVNWQSNKmfRY2eWbSmKH",
-      title: "teepees1",
+      url: "http://www.pics4learning.com/images/pics-banner1-1900.jpg",
+      title: "11",
     },
     {
-      url: "https://drive.google.com/uc?id=1APlL7EZnowTtjnKLtsVCYg0h1jg2YW2Y",
-      title: "teepees2",
+      url: "https://images2.pics4learning.com/catalog/i/img1959.jpg",
+      title: "22",
     },
     {
-      url: "https://drive.google.com/uc?id=1SrMKP6fEknN_a6oAjyJIjxYJiX-p49zi",
-      title: "teepees3",
+      url: "https://thumbs.dreamstime.com/b/beautiful-vancouver-skyline-harbor-idyllic-sunset-glow-british-columbia-canada-panoramic-view-famous-area-stanley-74588914.jpg",
+      title: "33",
     },
     {
-      url: "https://drive.google.com/uc?id=1y4vViDebbwr-alU60i1vYijUQwnjZIVI",
-      title: "teepees4",
+      url: "https://images.pexels.com/photos/207385/pexels-photo-207385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      title: "44",
     },
   ];
   if (props.slides) {
-    slides = props.slides;
+    //slides = props.slides;
     console.log(slides);
   }
 
-  slides = dentistSlides;
+  //slides = dentistSlides;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {

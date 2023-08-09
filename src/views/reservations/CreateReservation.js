@@ -219,6 +219,7 @@ export function CreateReservation(prop) {
           value={inputs.eventdescription || ""}
           onChange={handleChange}
           placeholder="Extra information"
+          required
         />
         <input
           className="rounded-md text-white font-bold  text-lg border-0 p-2 bg-[#00ADB5]"

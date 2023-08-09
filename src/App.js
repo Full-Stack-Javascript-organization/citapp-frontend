@@ -59,7 +59,7 @@ function App() {
             path="/reservation"
             element={
               <div className="">
-                <ImageSlider slides="" />
+                
                 <CreateReservation />
                 <Footer />
               </div>

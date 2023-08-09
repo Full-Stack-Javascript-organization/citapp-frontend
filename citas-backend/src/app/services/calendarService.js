@@ -1,4 +1,5 @@
 const CalendarRepository = require('../repositories/caledarRepository');
+const NotificationService = require('../services/notificationService');
 
 class CalendarService {
   constructor() {
@@ -7,7 +8,20 @@ class CalendarService {
 
   async createCalendar(calendarData) {
     try {
-      return await this.calendarRepository.createCalendar(calendarData);
+      const result = await this.calendarRepository.createCalendar(calendarData);
+
+      const notification = new NotificationService();
+
+  const toEmail = calendarData.reservationby;
+
+  console.log('toEmail' + toEmail);
+
+  await notification.sendNotification(toEmail,{
+    subject: `CitApp Notification Services`,
+    text: `Your appointmet for ${calendarData.name} was done.`
+  });
+
+  return result;
     } catch (err) {
       throw new Error('Failed to create calendar');
     }

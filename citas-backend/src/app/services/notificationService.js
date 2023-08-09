@@ -3,7 +3,7 @@ const formData = require('form-data');
 require('dotenv').config();
 const mailgun = new Mailgun(formData);
 const mailConfig = require('../../config/mail');
-//const mg = mailgun.client({username: mailConfig.mailgun.USERNAME, key: mailConfig.mailgun.API_KEY});
+const mg = mailgun.client({username: mailConfig.mailgun.USERNAME, key: mailConfig.mailgun.API_KEY});
 
 class NotificationService {
 
@@ -14,7 +14,7 @@ async sendNotification(toEmail,params) {
       subject: 'CitApp Notification Services',
       ...params
     };
-    //await mg.messages.create(mailConfig.mailgun.DOMAIN, data)
+    await mg.messages.create(mailConfig.mailgun.DOMAIN, data)
   };
 
 }
