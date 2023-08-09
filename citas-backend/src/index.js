@@ -4,10 +4,14 @@ const userRoutes = require('./routes/user');
 const companyRoutes = require('./routes/company');
 const serviceRoutes = require('./routes/service');
 const calendarRoutes = require('./routes/calendar');
+const cors = require('cors');
 
 //const bodyParser = require('body-parser');
 
 const app = express();
+
+// Enable CORS
+app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) // To parse the incoming requests with JSON payloads
 //app.use(bodyParser);
@@ -26,6 +30,6 @@ app.get('/', (req,res) => {
     res.send(`Hello There`); 
 })
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log('Server is running on port 3000');
 });
