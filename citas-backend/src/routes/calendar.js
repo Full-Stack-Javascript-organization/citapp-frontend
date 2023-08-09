@@ -11,7 +11,7 @@ router.post('/', calendarController.createCalendar.bind(calendarController));
 router.put('/:id', calendarController.updateCalendar.bind(calendarController));
 router.delete('/:id', calendarController.deleteCalendar.bind(calendarController));
 router.get('/search', calendarController.getAllCalendarsByName.bind(calendarController));
-router.get('/:id', calendarController.getAllCalendarById.bind(calendarController));
+router.get('/company/:id', calendarController.getAllCalendarById.bind(calendarController));
 router.get('/', calendarController.getAllCalendars.bind(calendarController));
 
 

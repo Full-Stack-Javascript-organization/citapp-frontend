@@ -1,18 +1,18 @@
 import React from "react";
 
 const planData = {
-  title: "Plan your next picnic",
-  subtitle: "Let us live togheter an adventure",
+  title: "Unlock Efficiency, One Schedule at a Time.",
+  subtitle: "Connect Today!",
   description:
-    "Description lorem ipsum dolor sit amet consectetur adipisicing elit. Eum voluptates nostrum dolorum reprehenderit error! Doloribus est illo eius saepe? Molestias sapiente perspiciatis doloribus consectetur nihil facilis aliquid eaque vel quisquam.",
-  image1:"https://drive.google.com/uc?id=15-vc0Y-28QPcyVNWQSNKmfRY2eWbSmKH",
-  image2:"https://drive.google.com/uc?id=1APlL7EZnowTtjnKLtsVCYg0h1jg2YW2Y",
-  image3:"https://drive.google.com/uc?id=1ej1lDN45H8UvljgirjtVqATW5szNgJ5q",
-  image4:"https://drive.google.com/uc?id=1y4vViDebbwr-alU60i1vYijUQwnjZIVI",
-  image5:"https://drive.google.com/uc?id=1CMt-G23elUM_Qx4eByIu5omzKAN4zBNW",
+    "Cita reserves your spot at your important places. The goal is to make reservation easier and connect people to more services efficiently. ",
+  image1: require("../../assets/img/image4.png"),
+  image2: require("../../assets/img/image1.png"),
+  image3: require("../../assets/img/caspgin_people_meeting_and_shaking_hands_in_office_environment__d5bb2f56-d50b-4383-af2d-744c539d21c2.png"),
+  image4: require("../../assets/img/image2.png"),
+  image5: require("../../assets/img/image5.png"),
 };
 
-export function Plan(){
+export function Plan() {
   return (
     <div className="max-w-[1400px] m-auto py-16 px-4 grid lg:grid-cols-2 gap-4">
       {/* Left Side */}
@@ -52,13 +52,13 @@ export function Plan(){
           <button className="border-black mr-4 hover:shadow-xl">
             Learn More
           </button>
-          <button className="bg-black text-white border-black hover:shadow-xl">
+          <button className="bg-black font-bold text-white border-black hover:shadow-xl">
             Book Your Service
           </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Plan;

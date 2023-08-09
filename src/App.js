@@ -31,7 +31,9 @@ function App() {
                 <MainClient />
                 <Plan />
                 <Company />
-                <ImageSlider />
+                {
+                  // <ImageSlider />
+                }
                 <Footer />
               </>
             }
@@ -56,7 +58,7 @@ function App() {
           <Route
             path="/reservation"
             element={
-              <div className="bg-black">
+              <div className="">
                 <ImageSlider slides="" />
                 <CreateReservation />
                 <Footer />
