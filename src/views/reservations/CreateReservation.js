@@ -261,10 +261,8 @@ export function CreateReservation(prop) {
                           reservationDetails(
                             sessions.find(
                               (session) =>
-                                new Date(session.date).toLocaleDateString(
-                                  "en-US"
-                                ) === date.toLocaleDateString("en-US", { timeZone: 'UTC' }) &&
-                                session.ismorning
+                              new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
+                              date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.ismorning
                             )._id
                           )
                         }
@@ -294,10 +292,8 @@ export function CreateReservation(prop) {
                           reservationDetails(
                             sessions.find(
                               (session) =>
-                                new Date(session.date).toLocaleDateString(
-                                  "en-US"
-                                ) === date.toLocaleDateString("en-US", { timeZone: 'UTC' }) &&
-                                session.isevening
+                              new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
+                              date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.isevening
                             )._id
                           )
                         }
@@ -329,11 +325,11 @@ export function CreateReservation(prop) {
         <label className="flex flex-col gap-3">
           Session :{" "}
           <span className="font-bold">
-            {reservationData.isMorning && reservationData.isEvening
+            {reservationData.ismorning && reservationData.isevening
               ? "Full Day"
-              : reservationData.isMorning
+              : reservationData.ismorning
               ? "Morning"
-              : reservationData.isEvening
+              : reservationData.isevening
               ? "Evening"
               : ""}
           </span>
