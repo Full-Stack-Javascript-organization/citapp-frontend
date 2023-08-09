@@ -145,7 +145,7 @@ export function CreateReservation(prop) {
 
   return (
     <div className="m-auto laptop:mt-5 laptop:pt-20 px-5 bg-black rounded pb-10 flex flex-col gap-4 tablet:w-4/5 laptop:w-4/5 desktop:4/5">
-      {/* <div className="flex mt-2 items-center gap-2 content-center">
+      <div className="flex mt-2 items-center gap-2 content-center">
         <FaCircle className=" flex-initial text-[#00DFA2] text-lg " />
         <h1 className="font-bold text-4xl text-[#F7E987]">{location.state.company.companyName}</h1>
       </div>
@@ -156,7 +156,7 @@ export function CreateReservation(prop) {
       <div className="flex items-center gap-2">
         <FaClock className="text-[#00ADB5]" />
         <p className="text-white">9:00 am - 5:00pm</p>
-      </div> */}
+      </div>
       <form onSubmit={handleSubmit} className="bg-black flex flex-col gap-4">
         <input
           className="rounded-md border-0 h-8 p-2"
