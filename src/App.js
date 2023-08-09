@@ -7,12 +7,13 @@ import { Sidebar } from "./views/admin/Sidebar";
 import { Header } from "./views/admin/Header";
 import { Main } from "./views/admin/Main";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import {Navbar} from './views/client/Navbar';
-import {MainClient} from './views/client/MainClient';
-import {Plan} from './views/client/Plan';
-import {Company} from './views/client/Company';
-import {ImageSlider} from './views/client/ImageSlider'
-import {Footer} from './views/client/Footer'
+import { Navbar } from "./views/client/Navbar";
+import { MainClient } from "./views/client/MainClient";
+import { Plan } from "./views/client/Plan";
+import { Company } from "./views/client/Company";
+import { ImageSlider } from "./views/client/ImageSlider";
+import { Footer } from "./views/client/Footer";
+import { HomePageBody } from "./views/client/HomePage";
 
 import { AuthProvider } from "./context/AuthContext";
 
@@ -21,17 +22,28 @@ function App() {
     <div>
       <AuthProvider>
         <Routes>
-        <Route
+          <Route
             path="/"
-            element={<>
-              <Navbar />
-              <MainClient />
-              <Plan />
-              <Company />
-              <ImageSlider />
-              <Footer />
-            </>              
-            } />
+            element={
+              <>
+                <Navbar />
+                <MainClient />
+                <Plan />
+                <Company />
+                <ImageSlider />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/homepage"
+            element={
+              <div className="bg-black">
+                <HomePageBody />
+                <Footer />
+              </div>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route
             path="/admin"
