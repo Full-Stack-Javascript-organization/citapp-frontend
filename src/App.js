@@ -40,15 +40,15 @@ function App() {
             path="/homepage"
             element={
               <ProtectedRoute>
-                <div className="flex overflow-scroll ">
-                  <div className="basis-[100%] border overflow-scroll h-[100vh]">
+                <div className="flex">
+                  <div className="basis-[100%] border  h-[100vh]">
                     <Header />
                     <div>
                       <HomePageBody />
                     </div>
-                  </div>                  
+                    <Footer />
+                  </div>
                 </div>
-                <Footer />
               </ProtectedRoute>
             }
           />

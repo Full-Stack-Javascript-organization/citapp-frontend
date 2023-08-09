@@ -17,6 +17,9 @@ module.exports = {
         desktop: "1280px",
         // => @media (min-width: 1280px) { ... }
       },
+      boxShadow: {
+        "3xl": "0 30px 60px -15px rgba(0, 0, 0, 0.5)",
+      },
     },
   },
   plugins: [],
