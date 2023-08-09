@@ -1,8 +1,85 @@
+
+import React from 'react';
 import { useState } from 'react';
 import DatePicker from "react-datepicker";
 // import ReactDOM from 'react-dom/client';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+
+
+
+const sessions = [
+    {
+        "date": "2023-08-10T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": true
+    },
+    {
+        "date": "2023-08-11T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": false
+    },
+    {
+        "date": "2023-08-12T00:47:26.000Z",
+        "ismorning": false,
+        "isevening": true
+    },
+    {
+        "date": "2023-08-14T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": true
+    },
+    {
+        "date": "2023-08-15T00:47:26.000Z",
+        "ismorning": false,
+        "isevening": false
+    },
+    {
+        "date": "2023-08-17T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": false
+    },
+    {
+        "date": "2023-08-18T00:47:26.000Z",
+        "ismorning": false,
+        "isevening": true
+    },
+    {
+        "date": "2023-08-21T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": true
+    },
+    {
+        "date": "2023-08-22T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": false
+    },
+    {
+        "date": "2023-08-24T00:47:26.000Z",
+        "ismorning": false,
+        "isevening": true
+    },
+    {
+        "date": "2023-08-25T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": true
+    },
+    {
+        "date": "2023-08-27T00:47:26.000Z",
+        "ismorning": false,
+        "isevening": false
+    },
+    {
+        "date": "2023-08-28T00:47:26.000Z",
+        "ismorning": true,
+        "isevening": false
+    },
+    {
+        "date": "2023-08-31T00:47:26.000Z",
+        "ismorning": false,
+        "isevening": true
+    }
+];
 
 export function CreateReservation() {
     const [inputs, setInputs] = useState({});
@@ -10,8 +87,17 @@ export function CreateReservation() {
     const [isMorning, setMorning] = useState(false);
     const [isEvening, setEvening] = useState(false);
 
-    // const updateOne = () => setCheckedOne((prev) => !prev);
-    // const updateOne = () => setCheckedOne((prev) => !prev);
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const today = new Date();
+    const nextTwoWeeks = [];
+  
+    // Generate dates for the next two weeks
+    for (let i = 0; i < 14; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      nextTwoWeeks.push(date);
+    }
+    /////////////////////////////////////////////
 
 
     const handleChange = (event) => {
@@ -91,7 +177,7 @@ export function CreateReservation() {
                     <input
                         name="ismorning"
                         type="checkbox"
-                        checked={isMorning}//{this.state.morning}
+                        checked={isMorning}
                         onChange={checkMorningHandler} />
                 </label>
                 <label>
@@ -99,20 +185,66 @@ export function CreateReservation() {
                     <input
                         name="isevening"
                         type="checkbox"
-                        checked={isEvening}//{this.state.evening}
+                        checked={isEvening}
                         onChange={checkEveningHandler} />
                 </label>
 
-                {/* <label>Enter your age:
-        <input 
-          type="number" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
-        />
-        </label> */}
+
                 <input type="submit" value="Make Appintment" />
+
             </form>
+            <br></br>
+            <h1>Weekly Timetable</h1>
+            <div>
+                <h1>Timetable for the Next Two Weeks</h1>
+                <table>
+                <thead>
+          <tr>
+            <th>Date</th>
+            {nextTwoWeeks.map((date, index) => (
+              <th key={index} colSpan="2">
+                {daysOfWeek[date.getDay()]} - {date.toLocaleDateString('en-US')}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Session</td>
+            {nextTwoWeeks.map((date, dateIndex) => (
+              <React.Fragment key={dateIndex}>
+                <td>
+                  {sessions.some(
+                    (session) =>
+                      new Date(session.date).toLocaleDateString('en-US') ===
+                        date.toLocaleDateString('en-US') && session.ismorning
+                  )
+                    ? 'Morning'
+                    : ''}                
+                    </td>
+               
+              </React.Fragment>
+            ))}
+          </tr>
+          <tr>
+            <td>Session</td>
+            {nextTwoWeeks.map((date, dateIndex) => (
+              <React.Fragment key={dateIndex}>
+                <td>
+                  {sessions.some(
+                    (session) =>
+                      new Date(session.date).toLocaleDateString('en-US') ===
+                        date.toLocaleDateString('en-US') && session.isevening
+                  )
+                    ? 'Evening'
+                    : ''}
+                </td>
+              </React.Fragment>
+            ))}
+          </tr>
+        </tbody>     
+      </table>               
+            </div>
         </div>
     )
 
