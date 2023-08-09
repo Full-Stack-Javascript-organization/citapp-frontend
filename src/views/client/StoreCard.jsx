@@ -3,42 +3,6 @@ import { FaMapPin, FaCircle, FaClock } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Card(props) {
-  //   function handleMouseMove(event) {
-  //     const card = cardRef.current;
-  //     const { offsetWidth: width, offsetHeight: height } = card;
-  //     const { clientX, clientY } = event;
-  //     const x = clientX - card.offsetLeft - width / 2;
-  //     const y = clientY - card.offsetTop - height / 2;
-  //     var mult = 40;
-  //     setXRotation((y / height) * mult);
-  //     setYRotation((x / width) * mult);
-  //   }
-  //   function handleMouseEnter() {
-  //     const img = imgRef.current;
-  //     const title = titleRef.current;
-  //     const sizesBox = sizesboxRef.current;
-  //     const purchase = purchaseRef.current;
-  //     const desc = descRef.current;
-  //     title.style.transform = "translateZ(150px)";
-  //     img.style.transform = "translateZ(100px) rotateZ(-45deg)";
-  //     sizesBox.style.transform = "translateZ(100px)";
-  //     purchase.style.transform = "translateZ(75px)";
-  //     desc.style.transform = "translateZ(75px)";
-  //   }
-  //   function handleMouseLeave() {
-  //     setXRotation(0);
-  //     setYRotation(0);
-
-  //     const img = imgRef.current;
-  //     const title = titleRef.current;
-  //     const sizesBox = sizesboxRef.current;
-  //     const purchase = purchaseRef.current;
-  //     title.style.transform = "translateZ(0px)";
-  //     img.style.transform = "translateZ(0px) rotateZ(0deg)";
-  //     sizesBox.style.transform = "translateZ(0px)";
-  //     purchase.style.transform = "translateZ(0px)";
-  //   }
-
   let companyInfo = {
     companyName: props.company.companyName,
     companyID: props.company.companyID,
@@ -47,7 +11,7 @@ export default function Card(props) {
   };
 
   return (
-    <div className="w-full h-[500px] text-[#EEEEEE]  p-2 flex-col rounded bg-[#393E46]">
+    <div className="w-full h-[500px] text-[#EEEEEE]  p-5 flex-col rounded bg-[#393E46]">
       <img
         src={""}
         alt="Store"
