@@ -5,13 +5,15 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+import { useLocale } from 'antd/es/locale';
+import { useLocation } from 'react-router-dom';
 
 
 let sessions = [];
 
 
-const allreservations = async () => {
-    await axios.get("http://localhost:3001/calendar/search?location=Hilton")
+const allreservations = async (id) => {
+    await axios.get("http://localhost:3001/calendar/search?companyid=" + id)
         //.then(response => response.json())
         .then(response => {
             console.log("Data loaded:");
@@ -19,9 +21,9 @@ const allreservations = async () => {
                 console.log(`Item ${index}:`, item);
                 sessions.push(item);
             });
-            
-           // sessions = [...sessions];
-            console.log("session Data : "+ sessions);
+
+            // sessions = [...sessions];
+            console.log("session Data : " + sessions);
             return sessions;
         })
         .catch(error => {
@@ -33,6 +35,9 @@ const allreservations = async () => {
 
 
 export function CreateReservation(prop) {
+    const location = useLocation();
+    console.log(location.state.company.companyID);
+
     const { logout, user } = useAuth();
     const [inputs, setInputs] = useState({});
     const [startDate, setStartDate] = useState(new Date());
@@ -41,12 +46,12 @@ export function CreateReservation(prop) {
     //const [sessions, setSessions] = useState([]);
 
     useEffect(() => {
-        allreservations().then(result => {
+        allreservations(location.state.company.companyID).then(result => {
             //console.log("session Data 123 : "+ sessions);
             //setSessions(result);
             // console.log("session Data : "+ sessions);
         });
-        
+
     }, []);
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -87,7 +92,7 @@ export function CreateReservation(prop) {
         event.preventDefault();
         console.log(sessions);
 
-        
+
         // alert(inputs.eventname + ": " + inputs.eventdescription
         //     + "\nDate : " + startDate
         //     + "\nSession : " + (inputs.ismorning ? "Morning" : "") + (inputs.isevening ? " Evening" : "")
@@ -96,30 +101,15 @@ export function CreateReservation(prop) {
         const reservation = {
             name: inputs.eventname,
             description: inputs.eventdescription,
-            location: "Hilton",
-            companyid: 1,
+            location: location.state.company.companyName,
+            companyid: location.state.company.companyID,
             date: startDate,
             ismorning: inputs.ismorning,
             isevening: inputs.isevening,
             reservationby: user.email
         };
         axios.post("http://localhost:3001/calendar", reservation).then(async (res) => {
-            //alert("Reservation Success");
-            //window.location = "/";//easiest way
-
-            //Add UseNavigate 
-            //useNavigate.call('/');
-            await allreservations().then(result => {
-                // sessions = [...sessions];
-                window.location.reload(false);
-            // nextTwoWeeks = [...nextTwoWeeks];
-            // sessions = [];
-            // sessions.forEach((item, index) => {
-            //     console.log(`Item ${index}:`, item);
-            //     sessions.push(item);
-            // });
-                //alert(sessions);
-            });
+            window.location.reload(false);
         })
             .catch(error => {
                 console.error('Error loading data:', error);
@@ -132,7 +122,7 @@ export function CreateReservation(prop) {
     return (
         <div className='w-full h-screen'>
 
-            <h1>{prop.name}</h1>
+            <h1>{location.state.company.companyName}</h1>
             <form onSubmit={handleSubmit}>
                 <label>Event Name:
                     <input
@@ -178,10 +168,10 @@ export function CreateReservation(prop) {
             <h1>Weekly Timetable</h1>
             <div>
                 <h1>Timetable for the Next Two Weeks</h1>
-                <table class="table-auto border-separate border border-slate-400">
+                <table>
                     <thead>
                         <tr>
-                            <th class="border border-slate-300 " >Date</th>
+                            <th>Date</th>
                             {nextTwoWeeks.map((date, index) => (
                                 <th key={index} colSpan="2">
                                     {daysOfWeek[date.getDay()]}<br></br>
@@ -192,10 +182,10 @@ export function CreateReservation(prop) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="border border-slate-300">Session</td>
+                            <td >Session</td>
                             {nextTwoWeeks.map((date, dateIndex) => (
                                 <React.Fragment key={dateIndex}>
-                                    <td class="border border-slate-300">
+                                    <td >
                                         {sessions.some(
                                             (session) =>
                                                 new Date(session.date).toLocaleDateString('en-US') ===
@@ -209,10 +199,10 @@ export function CreateReservation(prop) {
                             ))}
                         </tr>
                         <tr>
-                            <td class="border border-slate-300">Session</td>
+                            <td>Session</td>
                             {nextTwoWeeks.map((date, dateIndex) => (
                                 <React.Fragment key={dateIndex}>
-                                    <td class="border border-slate-300">
+                                    <td>
                                         {sessions.some(
                                             (session) =>
                                                 new Date(session.date).toLocaleDateString('en-US') ===
