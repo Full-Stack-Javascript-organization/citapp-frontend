@@ -24,7 +24,7 @@ const allreservations = async (id) => {
       });
 
       // sessions = [...sessions];
-      console.log("session Data : " + sessions);
+      console.log(sessions);
       return sessions;
     })
     .catch((error) => {
@@ -42,13 +42,17 @@ export function CreateReservation(prop) {
   const [isMorning, setMorning] = useState(false);
   const [isEvening, setEvening] = useState(false);
   const [reservationData, setReservationData] = useState({});
-  //const [sessions, setSessions] = useState([]);
+  const [sessionsData, setSessionsData] = useState([]);
 
   useEffect(() => {
+
+    setSessionsData([]);
+
     allreservations(location.state.company.companyID).then((result) => {
-      //console.log("session Data 123 : "+ sessions);
-      //setSessions(result);
-      // console.log("session Data : "+ sessions);
+      console.log("session Data 123 : "+ sessions);
+      console.log(sessions);
+      setSessionsData(sessions);
+      console.log("session Data : "+ new Date(sessions[0].date).toLocaleString("en-US", { timeZone: 'UTC' }));
     });
   }, []);
 
@@ -232,7 +236,7 @@ export function CreateReservation(prop) {
                 <th key={index} className="bg-[#00ADB5] p-2">
                   {daysOfWeek[date.getDay()]}
                   <br></br>
-                  {date.toLocaleDateString("en-US")}
+                  {date.toLocaleDateString("en-US", { timeZone: 'UTC' })}
                 </th>
               ))}
             </tr>
@@ -245,8 +249,8 @@ export function CreateReservation(prop) {
                   <td className=" border border-slate-300 text-center">
                     {sessions.some(
                       (session) =>
-                        new Date(session.date).toLocaleDateString("en-US") ===
-                          date.toLocaleDateString("en-US") && session.ismorning
+                        new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
+                          date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.ismorning
                     ) ? (
                       <input
                         type="button"
@@ -256,7 +260,7 @@ export function CreateReservation(prop) {
                               (session) =>
                                 new Date(session.date).toLocaleDateString(
                                   "en-US"
-                                ) === date.toLocaleDateString("en-US") &&
+                                ) === date.toLocaleDateString("en-US", { timeZone: 'UTC' }) &&
                                 session.ismorning
                             )._id
                           )
@@ -278,8 +282,8 @@ export function CreateReservation(prop) {
                   <td className=" border border-slate-300 text-center ">
                     {sessions.some(
                       (session) =>
-                        new Date(session.date).toLocaleDateString("en-US") ===
-                          date.toLocaleDateString("en-US") && session.isevening
+                        new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
+                          date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.isevening
                     ) ? (
                       <input
                         type="button"
@@ -289,7 +293,7 @@ export function CreateReservation(prop) {
                               (session) =>
                                 new Date(session.date).toLocaleDateString(
                                   "en-US"
-                                ) === date.toLocaleDateString("en-US") &&
+                                ) === date.toLocaleDateString("en-US", { timeZone: 'UTC' }) &&
                                 session.isevening
                             )._id
                           )
