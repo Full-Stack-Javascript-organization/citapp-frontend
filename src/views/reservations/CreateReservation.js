@@ -15,7 +15,7 @@ let sessions = [];
 
 const allreservations = async (id) => {
   await axios
-    .get("http://18.117.94.75:3000/calendar/search?companyid=" + id)
+    .get("https://61g7q3xccd.execute-api.us-east-2.amazonaws.com/calendar/search?companyid=" + id)
     //.then(response => response.json())
     .then((response) => {
       console.log("Data loaded:");
@@ -101,7 +101,7 @@ export function CreateReservation(prop) {
 
   const reservationDetails = async (id) => {
     await axios
-      .get("http://18.117.94.75:3000/calendar/company/" + id)
+      .get("https://61g7q3xccd.execute-api.us-east-2.amazonaws.com/calendar/company/" + id)
       //.then(response => response.json())
       .then((response) => {
         console.log("Data loaded:" + response.data.name);
