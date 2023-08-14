@@ -15,7 +15,10 @@ let sessions = [];
 
 const allreservations = async (id) => {
   await axios
-    .get("https://61g7q3xccd.execute-api.us-east-2.amazonaws.com/calendar/search?companyid=" + id)
+    .get(
+      "https://61g7q3xccd.execute-api.us-east-2.amazonaws.com/calendar/search?companyid=" +
+        id
+    )
     //.then(response => response.json())
     .then((response) => {
       console.log("Data loaded:");
@@ -46,14 +49,18 @@ export function CreateReservation(prop) {
   const [sessionsData, setSessionsData] = useState([]);
 
   useEffect(() => {
-
     setSessionsData([]);
 
     allreservations(location.state.company.companyID).then((result) => {
-      console.log("session Data 123 : "+ sessions);
+      console.log("session Data 123 : " + sessions);
       console.log(sessions);
       setSessionsData(sessions);
-      console.log("session Data : "+ new Date(sessions[0].date).toLocaleString("en-US", { timeZone: 'UTC' }));
+      console.log(
+        "session Data : " +
+          new Date(sessions[0].date).toLocaleString("en-US", {
+            timeZone: "UTC",
+          })
+      );
     });
   }, []);
 
@@ -101,7 +108,10 @@ export function CreateReservation(prop) {
 
   const reservationDetails = async (id) => {
     await axios
-      .get("https://61g7q3xccd.execute-api.us-east-2.amazonaws.com/calendar/company/" + id)
+      .get(
+        "https://61g7q3xccd.execute-api.us-east-2.amazonaws.com/calendar/company/" +
+          id
+      )
       //.then(response => response.json())
       .then((response) => {
         console.log("Data loaded:" + response.data.name);
@@ -136,7 +146,10 @@ export function CreateReservation(prop) {
     };
     console.log("reservation: " + reservation);
     axios
-      .post("http://localhost:3001/calendar", reservation)
+      .post(
+        "https://61g7q3xccd.execute-api.us-east-2.amazonaws.com/calendar",
+        reservation
+      )
       .then(async (res) => {
         alert("Reservation Success");
         window.location.reload(false);
@@ -151,7 +164,9 @@ export function CreateReservation(prop) {
     <div className="m-auto laptop:mt-5 laptop:pt-20 px-5 bg-black rounded pb-10 flex flex-col gap-4 tablet:w-4/5 laptop:w-4/5 desktop:4/5">
       <div className="flex mt-2 items-center gap-2 content-center">
         <FaCircle className=" flex-initial text-[#00DFA2] text-lg " />
-        <h1 className="font-bold text-4xl text-[#F7E987]">{location.state.company.companyName}</h1>
+        <h1 className="font-bold text-4xl text-[#F7E987]">
+          {location.state.company.companyName}
+        </h1>
       </div>
       <div className="flex  items-center gap-2">
         <FaMapPin className="text-[#00ADB5] flex-initial " />
@@ -240,7 +255,7 @@ export function CreateReservation(prop) {
                 <th key={index} className="bg-[#00ADB5] p-2">
                   {daysOfWeek[date.getDay()]}
                   <br></br>
-                  {date.toLocaleDateString("en-US", { timeZone: 'UTC' })}
+                  {date.toLocaleDateString("en-US", { timeZone: "UTC" })}
                 </th>
               ))}
             </tr>
@@ -253,8 +268,12 @@ export function CreateReservation(prop) {
                   <td className=" border border-slate-300 text-center">
                     {sessions.some(
                       (session) =>
-                        new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
-                          date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.ismorning
+                        new Date(session.date).toLocaleDateString("en-US", {
+                          timeZone: "UTC",
+                        }) ===
+                          date.toLocaleDateString("en-US", {
+                            timeZone: "UTC",
+                          }) && session.ismorning
                     ) ? (
                       <input
                         type="button"
@@ -262,8 +281,13 @@ export function CreateReservation(prop) {
                           reservationDetails(
                             sessions.find(
                               (session) =>
-                              new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
-                              date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.ismorning
+                                new Date(session.date).toLocaleDateString(
+                                  "en-US",
+                                  { timeZone: "UTC" }
+                                ) ===
+                                  date.toLocaleDateString("en-US", {
+                                    timeZone: "UTC",
+                                  }) && session.ismorning
                             )._id
                           )
                         }
@@ -284,8 +308,12 @@ export function CreateReservation(prop) {
                   <td className=" border border-slate-300 text-center ">
                     {sessions.some(
                       (session) =>
-                        new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
-                          date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.isevening
+                        new Date(session.date).toLocaleDateString("en-US", {
+                          timeZone: "UTC",
+                        }) ===
+                          date.toLocaleDateString("en-US", {
+                            timeZone: "UTC",
+                          }) && session.isevening
                     ) ? (
                       <input
                         type="button"
@@ -293,8 +321,13 @@ export function CreateReservation(prop) {
                           reservationDetails(
                             sessions.find(
                               (session) =>
-                              new Date(session.date).toLocaleDateString("en-US", { timeZone: 'UTC' }) ===
-                              date.toLocaleDateString("en-US", { timeZone: 'UTC' }) && session.isevening
+                                new Date(session.date).toLocaleDateString(
+                                  "en-US",
+                                  { timeZone: "UTC" }
+                                ) ===
+                                  date.toLocaleDateString("en-US", {
+                                    timeZone: "UTC",
+                                  }) && session.isevening
                             )._id
                           )
                         }
